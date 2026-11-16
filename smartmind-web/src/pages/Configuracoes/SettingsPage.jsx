@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { FormField, PageHeading, Toggle } from "../../components/energy/EnergyComponents.jsx";
 import { useLocalStorageState } from "../../components/energy/useEnergyStorage.js";
 import { useEnergyTheme } from "../../components/energy/EnergyTheme.js";
+import { authService } from "../../services/authService.js";
 import {
   getConfiguracoes,
   updateConfiguracoes,
 } from "../../services/energyApi.js";
+import { usuarioService } from "../../services/usuarioService.js";
 import "./SettingsPage.css";
 
 export default function SettingsPage() {
@@ -24,10 +26,41 @@ export default function SettingsPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getConfiguracoes().then((data) => {
-      setSettings(data);
+    let active = true;
+
+    async function loadSettings() {
+      const currentUser = authService.getCurrentUser();
+      const [settingsResult, userResult] = await Promise.allSettled([
+        getConfiguracoes(),
+        currentUser ? usuarioService.buscarPorId(currentUser.id) : Promise.resolve(null),
+      ]);
+
+      if (!active) return;
+
+      if (settingsResult.status !== "fulfilled") {
+        setError("Não foi possível carregar as configurações.");
+        return;
+      }
+
+      const data = settingsResult.value;
+      const account = userResult.status === "fulfilled" ? userResult.value : null;
+      const updatedSettings = {
+        ...data,
+        perfil: {
+          ...data.perfil,
+          nome: currentUser?.nome || account?.nome || "",
+          email: account?.email || "",
+        },
+      };
+
+      setSettings(updatedSettings);
       setTheme(data.preferencias.tema);
-    });
+    }
+
+    loadSettings();
+    return () => {
+      active = false;
+    };
   }, [setSettings, setTheme]);
 
   function updateGroup(group, key, value) {

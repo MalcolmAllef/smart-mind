@@ -81,15 +81,15 @@ export const mockDispositivos = [
 ];
 
 export const mockCasa = {
-  nome: "Casa Morgan",
+  nome: "Minha casa",
   endereco: "Rua das Acácias, 120 · São Paulo, SP",
   tarifa: 0.92,
   moeda: "BRL",
 };
 
 export const mockPerfil = {
-  nome: "Alex Morgan",
-  email: "alex.morgan@email.com",
+  nome: "",
+  email: "",
 };
 
 export const mockConsumo = {

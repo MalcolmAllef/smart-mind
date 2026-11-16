@@ -22,8 +22,8 @@
 }
 
 .energy-segmented button.selected {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--energy-action);
+  color: var(--energy-action-ink);
 }
 
 .energy-chart-legend {

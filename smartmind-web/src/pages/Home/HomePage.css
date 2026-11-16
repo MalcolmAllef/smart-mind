@@ -13,6 +13,11 @@
   --faint: var(--energy-faint);
   --accent: var(--energy-accent);
   --accent-ink: var(--energy-accent-ink);
+  --action: var(--energy-action);
+  --action-hover: var(--energy-action-hover);
+  --action-ink: var(--energy-action-ink);
+  --focus: var(--energy-focus);
+  --positive: var(--energy-positive);
   --mint: var(--energy-mint);
   --lav: var(--energy-lav);
   --amber: var(--energy-amber);
@@ -63,8 +68,8 @@
   width: 29px;
   height: 29px;
   border-radius: 10px;
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--action);
+  color: var(--action-ink);
   display: grid;
   place-items: center;
   font-size: 20px;
@@ -290,9 +295,9 @@
   flex: 0 0 auto;
   width: 6px;
   height: 6px;
-  background: #91d79a;
+  background: var(--positive);
   border-radius: 50%;
-  box-shadow: 0 0 9px #91d79a70;
+  box-shadow: 0 0 9px color-mix(in srgb, var(--positive) 44%, transparent);
 }
 
 .sm-welcome-date {
@@ -395,8 +400,8 @@
 
 .sm-summary-trend {
   font-size: 9px;
-  color: #92cf9e;
-  background: #92cf9e16;
+  color: var(--positive);
+  background: color-mix(in srgb, var(--positive) 12%, transparent);
   padding: 4px 7px;
   border-radius: 20px;
 }
@@ -564,8 +569,8 @@
 }
 
 .sm-room-pill.selected {
-  border-color: #c9f36a80;
-  background: #c9f36a18;
+  border-color: color-mix(in srgb, var(--accent) 56%, var(--line));
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
   color: var(--accent) !important;
 }
 
@@ -719,12 +724,12 @@
 }
 
 .sm-toggle.checked {
-  background: var(--accent);
+  background: var(--action);
 }
 
 .sm-toggle.checked i {
   transform: translateX(14px);
-  background: #263416;
+  background: var(--action-ink);
 }
 
 .sm-device-room-tag {

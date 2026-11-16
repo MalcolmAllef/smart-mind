@@ -12,10 +12,10 @@
 
 .energy-form-error {
   margin: 12px 0 0;
-  color: #ff9e91;
+  color: var(--energy-danger);
   font-size: 11px;
 }
 
 .energy-small-action.danger {
-  color: #ff9e91;
+  color: var(--energy-danger);
 }

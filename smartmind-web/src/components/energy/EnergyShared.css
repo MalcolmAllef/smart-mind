@@ -7,17 +7,23 @@
   --energy-space-xl: 32px;
   --energy-radius-sm: 8px;
   --energy-radius-md: 12px;
-  --energy-bg: #0d1017;
-  --energy-sidebar: #10131b;
-  --energy-surface: #151923;
-  --energy-surface-raised: #1a1f2a;
-  --energy-surface-soft: #202530;
-  --energy-line: rgba(255, 255, 255, 0.07);
-  --energy-text: #f4f5f8;
-  --energy-muted: #898e9d;
-  --energy-faint: #606777;
-  --energy-accent: #c9f36a;
-  --energy-accent-ink: #19220d;
+  --energy-bg: var(--ui-color-dark-background);
+  --energy-sidebar: var(--ui-color-dark-field);
+  --energy-surface: var(--ui-color-dark-surface);
+  --energy-surface-raised: var(--ui-color-dark-raised);
+  --energy-surface-soft: var(--ui-color-dark-hover);
+  --energy-line: var(--ui-color-dark-border);
+  --energy-text: var(--ui-color-dark-text);
+  --energy-muted: var(--ui-color-dark-muted);
+  --energy-faint: var(--ui-color-dark-subtle);
+  --energy-accent: var(--ui-color-link);
+  --energy-action: var(--ui-color-brand);
+  --energy-action-hover: var(--ui-color-brand-hover);
+  --energy-action-ink: var(--ui-color-on-brand);
+  --energy-focus: var(--ui-color-focus);
+  --energy-positive: #91d79a;
+  --energy-danger: #ff9e91;
+  --energy-accent-ink: var(--ui-color-on-brand);
   --energy-mint: #a3dfcd;
   --energy-lav: #c3b5f5;
   --energy-amber: #f5c476;
@@ -26,21 +32,27 @@
 }
 
 .sm-app[data-theme="light"] {
-  --energy-bg: #f4f5f1;
-  --energy-sidebar: #ffffff;
-  --energy-surface: #ffffff;
-  --energy-surface-raised: #ffffff;
-  --energy-surface-soft: #f0f1eb;
-  --energy-line: rgba(30, 38, 25, 0.09);
-  --energy-text: #242820;
-  --energy-muted: #74796d;
-  --energy-faint: #9b9e94;
-  --energy-accent: #a4cd45;
-  --energy-accent-ink: #ffffff;
-  --energy-mint: #7ec9b3;
-  --energy-lav: #a797e5;
-  --energy-amber: #e9b45e;
-  --energy-sky: #86b9ed;
+  --energy-bg: var(--ui-color-light-background);
+  --energy-sidebar: var(--ui-color-light-surface);
+  --energy-surface: var(--ui-color-light-surface);
+  --energy-surface-raised: var(--ui-color-light-raised);
+  --energy-surface-soft: var(--ui-color-light-soft);
+  --energy-line: var(--ui-color-light-border);
+  --energy-text: var(--ui-color-light-text);
+  --energy-muted: var(--ui-color-light-muted);
+  --energy-faint: var(--ui-color-light-faint);
+  --energy-accent: var(--ui-color-brand);
+  --energy-action: var(--ui-color-brand);
+  --energy-action-hover: var(--ui-color-brand-hover);
+  --energy-action-ink: #ffffff;
+  --energy-focus: var(--ui-color-brand-hover);
+  --energy-positive: var(--ui-color-success-light);
+  --energy-danger: var(--ui-color-danger-light);
+  --energy-accent-ink: var(--ui-color-on-brand);
+  --energy-mint: #267b65;
+  --energy-lav: #5743a0;
+  --energy-amber: #815600;
+  --energy-sky: #155b84;
 }
 
 .sm-app {
@@ -129,15 +141,24 @@
 }
 
 .energy-button {
-  border-color: transparent;
-  background: var(--accent);
-  color: var(--accent-ink);
+  border-color: var(--energy-action);
+  background: var(--energy-action);
+  color: var(--energy-action-ink);
 }
 
-.energy-button:hover,
+.sm-app .energy-button {
+  color: var(--energy-action-ink);
+}
+
+.energy-button:hover:not(:disabled) {
+  border-color: var(--energy-action-hover);
+  background: var(--energy-action-hover);
+}
+
 .energy-button-secondary:hover {
   transform: translateY(-1px);
-  border-color: var(--accent);
+  border-color: var(--energy-focus);
+  background: var(--surface-soft);
 }
 
 .energy-button:disabled {
@@ -146,7 +167,12 @@
 }
 
 .energy-button-secondary.danger {
-  color: #ff9e91;
+  color: var(--energy-danger);
+}
+
+.energy-button-secondary.danger:hover {
+  border-color: var(--energy-danger);
+  background: color-mix(in srgb, var(--energy-danger) 10%, var(--surface));
 }
 
 .energy-metrics {
@@ -273,8 +299,8 @@
 .energy-input:focus,
 .energy-select:focus,
 .energy-textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+  border-color: var(--energy-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--energy-focus) 22%, transparent);
 }
 
 .energy-input::placeholder,
@@ -302,12 +328,12 @@
 }
 
 .energy-toggle[aria-checked="true"] {
-  background: var(--accent);
+  background: var(--energy-action);
 }
 
 .energy-toggle[aria-checked="true"] span {
   transform: translateX(18px);
-  background: var(--accent-ink);
+  background: var(--energy-action-ink);
 }
 
 .energy-table-wrap {
@@ -419,7 +445,7 @@
 
 .energy-form-error {
   margin: 12px 0 0;
-  color: #ff9e91;
+  color: var(--energy-danger);
   font-size: 11px;
 }
 
@@ -533,7 +559,7 @@
 }
 
 .energy-small-action.danger {
-  color: #ff9e91;
+  color: var(--energy-danger);
 }
 
 .energy-room-card {

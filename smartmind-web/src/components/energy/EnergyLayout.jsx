@@ -21,6 +21,8 @@ export default function EnergyLayout({ children }) {
     localStorage.setItem("smartmind-theme", nextTheme);
   }, []);
 
+
+  
   return (
     <EnergyThemeContext.Provider value={{ theme, setTheme: changeTheme }}>
       <main className="sm-app" data-theme={theme}>
@@ -49,7 +51,7 @@ export default function EnergyLayout({ children }) {
                 </span>
                 <span>{theme === "dark" ? "Modo claro" : "Modo escuro"}</span>
               </button>
-              <div className="sm-mini-avatar">A</div>
+              
             </div>
           </header>
           <div className="sm-content">{children}</div>

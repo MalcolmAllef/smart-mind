@@ -53,7 +53,7 @@ export function Toggle({ checked, onChange, label }) {
   );
 }
 
-export function Modal({ title, description, onClose, children }) {
+export function Modal({ title, description, onClose, children, role = "dialog" }) {
   useEffect(() => {
     function onKeyDown(event) {
       if (event.key === "Escape") onClose();
@@ -71,14 +71,15 @@ export function Modal({ title, description, onClose, children }) {
     >
       <section
         className="energy-modal"
-        role="dialog"
+        role={role}
         aria-modal="true"
         aria-labelledby="energy-modal-title"
+        aria-describedby={description ? "energy-modal-description" : undefined}
       >
         <header className="energy-modal-heading">
           <div>
             <h2 id="energy-modal-title">{title}</h2>
-            <p>{description}</p>
+            <p id="energy-modal-description">{description}</p>
           </div>
           <button
             className="energy-close"

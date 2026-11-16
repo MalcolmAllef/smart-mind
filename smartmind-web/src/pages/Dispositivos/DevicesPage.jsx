@@ -153,6 +153,7 @@ export default function DevicesPage() {
   const [devices, setDevices] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [modalDevice, setModalDevice] = useState(null);
+  const [deviceToDelete, setDeviceToDelete] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState("");
 
@@ -181,10 +182,12 @@ export default function DevicesPage() {
     setModalDevice(null);
   }
 
-  async function removeDevice(device) {
-    if (!window.confirm("Remover " + device.nome + " da sua casa?")) return;
-    await deleteDispositivo(device.id);
-    setDevices((current) => current.filter((item) => item.id !== device.id));
+  async function confirmRemoveDevice() {
+    if (!deviceToDelete) return;
+
+    await deleteDispositivo(deviceToDelete.id);
+    setDevices((current) => current.filter((item) => item.id !== deviceToDelete.id));
+    setDeviceToDelete(null);
     setNotice("Dispositivo removido.");
   }
 
@@ -261,7 +264,7 @@ export default function DevicesPage() {
                       {device.ativo ? "●" : "○"}
                     </button>
                     <button className="energy-small-action" type="button" aria-label={"Editar " + device.nome} onClick={() => setModalDevice(device)}>✎</button>
-                    <button className="energy-small-action danger" type="button" aria-label={"Remover " + device.nome} onClick={() => removeDevice(device)}>×</button>
+                    <button className="energy-small-action danger" type="button" aria-label={"Remover " + device.nome} onClick={() => setDeviceToDelete(device)}>×</button>
                   </div>
                 </div>
               </div>
@@ -284,6 +287,32 @@ export default function DevicesPage() {
             onCancel={() => setModalDevice(null)}
             onSubmit={saveDevice}
           />
+        </Modal>
+      )}
+
+      {deviceToDelete && (
+        <Modal
+          title="Excluir dispositivo?"
+          description={`Tem certeza que deseja remover ${deviceToDelete.nome} da sua casa?`}
+          onClose={() => setDeviceToDelete(null)}
+          role="alertdialog"
+        >
+          <div className="energy-form-actions">
+            <button
+              className="energy-button-secondary"
+              type="button"
+              onClick={() => setDeviceToDelete(null)}
+            >
+              Cancelar
+            </button>
+            <button
+              className="energy-button-secondary danger"
+              type="button"
+              onClick={confirmRemoveDevice}
+            >
+              Excluir dispositivo
+            </button>
+          </div>
         </Modal>
       )}
     </main>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { toHomeDevice } from "../../components/energy/devicePresentation.js";
+import { authService } from "../../services/authService.js";
 import { getAmbientes, getDispositivos, updateDispositivo } from "../../services/energyApi.js";
 import "./HomePage.css";
 
@@ -11,6 +12,7 @@ export default function HomePage() {
   const [devices, setDevices] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [temperature, setTemperature] = useState(22);
+  const displayName = authService.getCurrentUser()?.nome?.trim();
   const activeCount = devices.filter((device) => device.on).length;
   const now = new Date();
   const greeting =
@@ -85,7 +87,8 @@ export default function HomePage() {
           <span className="sm-welcome-date">· {formattedDate}</span>
         </div>
         <h1>
-          {greeting}, Alex <span className="sm-wave">✳</span>
+          {displayName ? `${greeting}, ${displayName}` : greeting}{" "}
+          <span className="sm-wave">✳</span>
         </h1>
         <p>Sua casa está do jeitinho que você gosta.</p>
       </div>

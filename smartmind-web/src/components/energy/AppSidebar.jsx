@@ -1,13 +1,17 @@
 import { Link, useLocation } from "react-router";
+import { authService } from "../../services/authService.js";
 import { navigationItems } from "./navigation.js";
+import Logo from "../../assets/logo.png";
 
 export default function AppSidebar() {
   const location = useLocation();
+  const currentUser = authService.getCurrentUser();
+  const displayName = currentUser?.nome || "Usuário";
 
   return (
     <aside className="sm-sidebar">
       <Link className="sm-brand" to="/home" aria-label="SmartMind início">
-        <span className="sm-brand-mark">✳</span>
+        <img className="sm-brand-mark" src={Logo} alt="Logo da aplicação" />
         <span className="sm-brand-name">SmartMind</span>
       </Link>
       <div className="sm-side-label">MENU PRINCIPAL</div>
@@ -32,9 +36,11 @@ export default function AppSidebar() {
       </nav>
       <div className="sm-sidebar-bottom">
         <div className="sm-profile">
-          <div className="sm-avatar">A</div>
+          <div className="sm-avatar" aria-hidden="true">
+            {displayName.charAt(0).toLocaleUpperCase("pt-BR")}
+          </div>
           <div>
-            <strong>Alex Morgan</strong>
+            <strong>{displayName}</strong>
             <span>Minha casa</span>
           </div>
         </div>
